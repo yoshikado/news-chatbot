@@ -1,0 +1,4 @@
+click
+feedparser
+httplib2
+newspaper3k

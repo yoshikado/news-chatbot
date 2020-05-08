@@ -1,0 +1,62 @@
+{
+    "zdnet_japan": {
+        "link": "https://japan.zdnet.com/",
+        "rss": "http://feeds.japan.zdnet.com/rss/zdnet/all.rdf"
+    },
+    "cnet_japan": {
+        "link": "https://japan.cnet.com/",
+        "rss": "http://feeds.japan.cnet.com/rss/cnet/all.rdf"
+    },
+    "techrepublic_japan": {
+        "link": "https://japan.techrepublic.com",
+        "rss": "https://japan.techrepublic.com/rss/latest/"
+    },
+    "engadget_japan": {
+        "link": "https://japanese.engadget.com/",
+        "rss": "https://japanese.engadget.com/rss.xml"
+    },
+    "huffpost_japan": {
+        "link": "https://www.huffingtonpost.jp/",
+        "rss": "https://www.huffingtonpost.jp/feeds/index.xml"
+    },
+    "yahoo_japan": {
+        "link": "https://news.yahoo.co.jp/categories/it",
+        "rss": "https://news.yahoo.co.jp/pickup/computer/rss.xml"
+    },
+    "techcrunch_japan": {
+        "link": "https://jp.techcrunch.com/",
+        "rss": "https://jp.techcrunch.com/feed/"
+    },
+    "itmedia_news": {
+        "link": "https://www.itmedia.co.jp/",
+        "rss": "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml"
+    },
+    "atmarkit": {
+        "link": "https://www.atmarkit.co.jp/",
+        "rss": "https://rss.itmedia.co.jp/rss/2.0/ait.xml"
+    },
+    "ascii": {
+        "link": "https://weekly.ascii.jp/",
+        "rss": "https://weekly.ascii.jp/rss.xml"
+    },
+    "gihyo": {
+        "link": "https://gihyo.jp/",
+        "rss": "https://gihyo.jp/feed/rss2"
+    },
+    "infoq": {
+        "link": "https://www.infoq.com/jp/",
+        "rss": "https://feed.infoq.com/jp"
+    },
+    "thinkit": {
+        "link": "https://thinkit.co.jp/",
+        "rss": "http://thinkit.co.jp/rss.xml"
+    },
+    "codezine": {
+        "link": "https://codezine.jp/",
+        "rss": "https://codezine.jp/rss/new/20/index.xml"
+    },
+    "publickey": {
+        "link": "https://www.publickey1.jp/",
+        "rss": "https://www.publickey1.jp/atom.xml"
+    }
+}

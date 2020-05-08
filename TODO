@@ -1,0 +1,5 @@
+- Cleanup codes(add comments, remove unnecessary codes, etc)
+- Add logging class
+- Add unittest
+- Handle SVG logos
+- Seperate the keyword list as a file

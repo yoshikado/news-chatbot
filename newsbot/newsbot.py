@@ -144,8 +144,9 @@ def filterNews(data):
     for source in data['newspapers'].items():
         filterWithKeywords(source, filtered_data['newspapers'][source[0]])
         sql = SQLiteUtil(source[0])
-        filterDuplicates(sql,
-                         filtered_data['newspapers'][source[0]]['articles'])
+        if not filtered_data['newspapers'][source[0]]['articles']:
+            filterDuplicates(sql,
+                            filtered_data['newspapers'][source[0]]['articles'])
     return filtered_data
 
 

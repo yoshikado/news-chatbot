@@ -2,12 +2,16 @@ import click
 import feedparser as fp
 import json
 import newspaper
+from send.google_chat import GoogleChat
+from send.mattermost import Mattermost
 from copy import deepcopy
 from newspaper import Article
 from sqlite_util import SQLiteUtil
-from httplib2 import Http
 
 DEFAULT_NEWS_LIST_FILE = "news_list.json"
+
+TOOL_GOOGLE_CHAT = 'google_chat'
+TOOL_MATTERMOST = 'mattermost'
 
 keywordList = [
     'Canonical',
@@ -38,9 +42,6 @@ keywordList = [
     'nuc',
     'ThinkPad',
 ]
-
-gChatRoomUrl = None
-gThreadSpace = None
 
 
 def aggregateAllNews(file):
@@ -170,80 +171,12 @@ def filterDuplicates(sql, filtered_articles):
             filtered_articles.remove(article)
 
 
-def getThreadSpace(res):
-    r = json.loads(res)
-    return r['thread']['name']
-
-
-def sendSourceHeader(source):
-    global gThreadSpace
-    if len(source[1]['articles']):
-        header = source[1]['name']
-        imgurl = source[1]['img']
-        body = {
-            "cards": [
-                {
-                    "header": {
-                        "title": header,
-                        "imageUrl": imgurl
-                    }
-                }
-            ],
-            "thread": {
-                "name": gThreadSpace
-            }
-        }
-        send(body)
-
-
-def sendSourceArticles(source):
-    global gThreadSpace
-    sql = SQLiteUtil(source[0])
-    for article in source[1]['articles']:
-        text = "\n{}\n{}".format(article['title'], article['link'])
-        body = {
-            "text": text,
-            "thread": {
-                "name": gThreadSpace
-            }
-        }
-        send(body)
-        sql.UpdateSentData('true', article['title'])
-
-
-def sendAllArticles(filtered_data):
-    for source in filtered_data['newspapers'].items():
-        # Create card with the source title
-        sendSourceHeader(source)
-        # Send each articles
-        sendSourceArticles(source)
-
-
-def sendTitle(title):
-    global gThreadSpace
-    body = {'text': title}
-    res = send(body)
-    gThreadSpace = getThreadSpace(res)
-
-
-def send(body):
-    global gChatRoomUrl
-    bot_message = body
-    message_headers = {'Content-Type': 'application/json; charset=UTF-8'}
-    http_obj = Http()
-    resp, content = http_obj.request(
-        uri=gChatRoomUrl,
-        method='POST',
-        headers=message_headers,
-        body=json.dumps(bot_message),
-    )
-    print(resp)
-    return content.decode('utf-8')
-
-
-def sendToChat(filtered_data, title):
-    sendTitle(title)
-    sendAllArticles(filtered_data)
+def send(chat, filtered_data, title, room):
+    if chat == TOOL_GOOGLE_CHAT:
+        send = GoogleChat(room)
+    elif chat == TOOL_MATTERMOST:
+        send = Mattermost(room)
+    send.send(title, filtered_data)
 
 
 @click.command()
@@ -254,12 +187,12 @@ def sendToChat(filtered_data, title):
               default=news_list.json')
 @click.option('-t', '--title', default="Today's news digest!",
               help='Set the title. default="Today\'s news digest!"')
-def main(room, file, title):
-    global gChatRoomUrl
-    gChatRoomUrl = room
+@click.option('-c', '--chat', required=True,
+              help='Which chat tool to send to. google_chat, mattermost is supported')
+def main(room, file, title, chat):
     data = aggregateAllNews(file)
     filtered_data = filterNews(data)
-    sendToChat(filtered_data, title)
+    send(chat, filtered_data, title, room)
 
 
 if __name__ == '__main__':

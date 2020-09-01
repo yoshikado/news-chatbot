@@ -97,7 +97,8 @@ class SQLiteUtil:
             )
         except Error as e:
             print(e)
-        return cur.fetchone()
+        res = cur.fetchone()
+        return res
 
     def UpdateSentData(self, value, title):
         """

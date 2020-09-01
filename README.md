@@ -11,4 +11,4 @@ $ python newsbot.py --title "Hi there! It's 9AM! News digest!" \
 
 ## Limitation
 
-For now, it is limited for Google Chat only
+For now, it is limited for Google Chat & Mattermost only

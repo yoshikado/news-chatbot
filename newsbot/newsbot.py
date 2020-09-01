@@ -188,7 +188,8 @@ def send(chat, filtered_data, title, room):
 @click.option('-t', '--title', default="Today's news digest!",
               help='Set the title. default="Today\'s news digest!"')
 @click.option('-c', '--chat', required=True,
-              help='Which chat tool to send to. google_chat, mattermost is supported')
+              help='Which chat tool to send to. \
+              google_chat, mattermost is supported')
 def main(room, file, title, chat):
     data = aggregateAllNews(file)
     filtered_data = filterNews(data)

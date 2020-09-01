@@ -35,7 +35,6 @@ class Mattermost():
                     {
                         "color": "#FF8000",
                         "title": header,
-                        "image_url": imgurl
                     }
                 ]
             }
@@ -44,7 +43,7 @@ class Mattermost():
     def send_source_articles(self, source):
         sql = SQLiteUtil(source[0])
         for article in source[1]['articles']:
-            text = "\n{}\n{}".format(article['title'], article['link'])
+            text = "\n{}\n{}".format(article['link'],article['title'])
             body = {
                 "username": self.username,
                 "icon_url": self.icon_url,
